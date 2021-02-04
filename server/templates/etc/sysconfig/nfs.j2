@@ -17,9 +17,7 @@
 #
 #
 # Optional arguments passed to in-kernel lockd
-{% if nfs_lockd_port|int > 0 %}
-LOCKDARG={{ nfs_lockd_port }}
-{% endif %}
+#LOCKDARG=
 # TCP port rpc.lockd should listen on.
 #LOCKD_TCPPORT=32803
 # UDP port rpc.lockd should listen on.
@@ -72,15 +70,9 @@ MOUNTD_PORT={{ nfs_mountd_port }}
 # Optional arguments passed to rpc.statd. See rpc.statd(8)
 #STATDARG=""
 # Port rpc.statd should listen on.
-{% if nfs_statd_port|int > 0 %}
-STATD_PORT={{ nfs_statd_port }}
-{% endif %}
 #STATD_PORT=662
 # Outgoing port statd should used. The default is port
 # is random
-{% if nfs_statd_out_port|int > 0 %}
-STATD_OUTGOING_PORT={{ nfs_statd_out_port }}
-{% endif %}
 #STATD_OUTGOING_PORT=2020
 # Specify callout program
 #STATD_HA_CALLOUT="/usr/local/bin/foo"
