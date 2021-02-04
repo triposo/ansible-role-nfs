@@ -1,0 +1,21 @@
+---
+- name: read override vars
+  include_role: 
+    name: users
+    tasks_from: read_users_meta
+
+- name: do override vars groups
+  set_fact:
+    nfs_groups: 
+      - {name: nfsgroup, gid: 2500} 
+
+- name: do override var users
+  set_fact:
+    nfs_users: "{{ nfs_users + [ {'name': item.id} ] }}"
+  with_items:
+    "{{ users_meta }}"
+  when:
+    item.get('action') != 'remove'
+  vars:
+    nfs_users: []
+  

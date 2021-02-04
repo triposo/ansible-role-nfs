@@ -1,5 +1,8 @@
 ---
-- assert:
+- name: assertion
+  tags:
+    - setup_exports
+  assert:
     that:
       - item.allow_from is not string
       - item.allow_from is iterable
@@ -8,17 +11,20 @@
     - "{{ nfs_shares }}"
 
 - name: Create the share directory
+  tags:
+    - setup_exports
   file:
     state: directory
     path: "{{ item.path }}"
     owner: "{{ item.owner }}"
     group: "{{ item.group }}"
     mode: "{{ item.mode }}"
-    recurse: true
   with_items:
     - "{{ nfs_shares }}"
 
 - name: Configure /etc/exports
+  tags:
+    - setup_exports
   template:
     src: templates/etc/exports.j2
     dest: /etc/exports
